@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FeedCommentActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/primaryColor"
+                    android:textSize="18sp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="6dp"
+                    android:textStyle="bold"
+                    android:id="@+id/name"/>
+                <TextView
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:id="@+id/desc"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/image"
+                    android:background="#36DFDEDE"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#E17072"
+                    android:orientation="horizontal">
+                    <Button
+                        android:paddingStart="10dp"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:drawableLeft="@drawable/ic_message"
+                        android:textColor="@color/white"
+                        android:background="@drawable/primary_btn"
+                        android:layout_marginStart="20dp"
+                        android:id="@+id/comment"
+                        tools:ignore="RtlSymmetry" />
+                    <Button
+                        android:paddingStart="10dp"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:drawableLeft="@drawable/ic_liked"
+                        android:textColor="@color/white"
+                        android:background="@drawable/primary_btn"
+                        android:layout_marginStart="20dp"
+                        android:id="@+id/like"
+                        tools:ignore="RtlSymmetry" />
+                    <Button
+                        android:paddingStart="10dp"
+                        android:visibility="gone"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:drawableLeft="@drawable/ic_like"
+                        android:textColor="@color/white"
+                        android:background="@drawable/primary_btn"
+                        android:layout_marginStart="20dp"
+                        android:id="@+id/liked"
+                        tools:ignore="RtlSymmetry" />
+                    <ImageButton
+                        android:background="#00FFFFFF"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_info"
+                        android:layout_marginStart="20dp"
+                        android:id="@+id/info"/>
+
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/recycler_view"/>
+            </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/cb"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true">
+
+        <EditText
+            android:id="@+id/addcomment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="0dp"
+            android:layout_toStartOf="@+id/submit"
+            android:background="@color/primaryLight"
+            android:hint="@string/enter_comment"
+            android:maxLines="5"
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="#595959" />
+
+        <ImageButton
+            android:layout_alignParentRight="true"
+            android:id="@+id/submit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/primary_btn"
+            android:src="@drawable/ic_send"
+       />
+
+    </RelativeLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cb" />
+
+
+</RelativeLayout>

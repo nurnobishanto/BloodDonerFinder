@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".profile.ProfileDetailsFragment">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mycard"
+        android:backgroundTint="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:src="@drawable/male_user"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_image"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="#FF000000"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:singleLine="true"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/secondaryColor"
+                        android:textStyle="bold"
+                        android:id="@+id/name"
+                        android:drawableLeft="@drawable/ic_local_police"
+                        android:textSize="20sp"/>
+                    <TextView
+                        android:visibility="gone"
+                        android:textSize="18sp"
+                        android:layout_marginTop="8dp"
+                        android:drawableLeft="@drawable/ic_favorite"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FF0000"
+                        android:textStyle="bold"
+                        android:id="@+id/bloodgroup" />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:text="@string/not_added_yet"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/city"
+                app:drawableTint="@color/black"
+                app:drawableLeftCompat="@drawable/ic_location" />
+            <TextView
+                android:text="@string/not_added_yet"
+                android:drawableTint="@color/black"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_location"
+                android:id="@+id/address" />
+            <TextView
+                android:text="@string/not_added_yet"
+                android:drawableTint="@color/black"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_email"
+                android:id="@+id/email" />
+            <TextView
+                android:text="@string/not_added_yet"
+                android:textColor="#005704"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ice_call_green"
+                android:id="@+id/cnumber"/>
+            <TextView
+
+                android:text="@string/not_added_yet"
+                android:textColor="#FF0000"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_call_red"
+                android:id="@+id/enumber" />
+            <TextView
+                android:text="@string/not_added_yet"
+                android:drawableTint="@color/black"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_calendar"
+                android:id="@+id/ld"/>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/ability"
+                android:drawableTint="@color/black"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_check"
+                />
+
+            <Button
+                android:drawableStart="@drawable/ic_send"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@drawable/primary_btn"
+                android:text="Send Message"
+                android:id="@+id/sendMsg"
+                android:textColor="@color/white"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_gravity="center">
+                <Button
+                    android:visibility="gone"
+                    android:layout_marginEnd="8dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/primary_btn"
+                    android:text="Call Now"
+                    android:id="@+id/contact"
+                    android:textColor="@color/white"/>
+                <Button
+                    android:visibility="gone"
+                    android:layout_marginStart="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/primary_btn"
+                    android:text="Emergency"
+                    android:id="@+id/emergency"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+            <Button
+                android:visibility="gone"
+                android:drawableStart="@drawable/ic_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@drawable/primary_btn"
+                android:text="Edit Profile"
+                android:id="@+id/editProfile"
+                android:textColor="@color/white"/>
+
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+</ScrollView>

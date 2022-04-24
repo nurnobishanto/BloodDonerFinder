@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="16dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email Address"
+        android:inputType="textWebEmailAddress|textEmailAddress"
+        android:background="@drawable/third_btn"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:singleLine="true"
+        android:id="@+id/email_et"/>
+
+    <EditText
+        android:inputType="textPassword"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:background="@drawable/third_btn"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:singleLine="true"
+        android:id="@+id/password_et"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/primary_btn"
+        android:textColor="@color/white"
+        android:text="Update"
+        android:id="@+id/update"
+        android:layout_marginTop="15dp"/>
+
+
+
+</LinearLayout>
