@@ -44,11 +44,11 @@ import java.util.Map;
 
 public class EditMyProfileActivity extends AppCompatActivity {
     final Calendar myCalendar= Calendar.getInstance();
-    String ability,fname,lname,dateofbirth,city,address,email,cnumber,enumber,bloodgroup;
-    TextInputLayout fnameet,lnameet,addresset,emailet,cnumberet,enumberet,fullnameet;
+    String fullname,ability,dateofbirth,ld,city,address,email,cnumber,enumber,bloodgroup;
+    TextInputLayout addresset,emailet,cnumberet,enumberet,fullnameet;
     RadioGroup bloodgrouprd,ailityrb;
     @SuppressLint("StaticFieldLeak")
-    TextView cityet,dateofbirthet;
+    TextView cityet,dateofbirthet,lastDonate;
     Button update;
     FirebaseAuth mAuth;
     String userId;
@@ -63,10 +63,10 @@ public class EditMyProfileActivity extends AppCompatActivity {
         ability = "";
         bloodgroup = "";
 
-        fnameet = findViewById(R.id.fname);
-        lnameet = findViewById(R.id.lname);
+
         fullnameet = findViewById(R.id.fullname);
         dateofbirthet = findViewById(R.id.dob);
+        lastDonate = findViewById(R.id.lastDonate);
         cityet = findViewById(R.id.city);
         addresset = findViewById(R.id.address);
         emailet = findViewById(R.id.email);
@@ -85,7 +85,7 @@ public class EditMyProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog =  new Dialog(EditMyProfileActivity.this);
-                dialog.setContentView(R.layout.dialogue_search_box);
+                dialog.setContentView(R.layout.dialogue_search_box_dark);
                 dialog.getWindow().setLayout(700,1200);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));
 
@@ -135,12 +135,10 @@ public class EditMyProfileActivity extends AppCompatActivity {
                 if (ability.isEmpty()){
                     Toast.makeText(EditMyProfileActivity.this,"Please Select ability Option",Toast.LENGTH_LONG).show();
                 }
-                else if (fnameet.getEditText().getText().toString().isEmpty()){
-                    fnameet.setError("Empty Field!");
+                else if (fullnameet.getEditText().getText().toString().isEmpty()){
+                    fullnameet.setError("Empty Field!");
                 }
-                else if(lnameet.getEditText().getText().toString().isEmpty()){
-                    lnameet.setError("Empty Field!");
-                }
+
                 else if(dateofbirthet.getText().toString().equals("Select Date of Birth")){
                     Toast.makeText(EditMyProfileActivity.this,"Please Select Date of Birth",Toast.LENGTH_LONG).show();
                 }
@@ -163,15 +161,18 @@ public class EditMyProfileActivity extends AppCompatActivity {
                 else if (bloodgroup.equals("")){
                     Toast.makeText(EditMyProfileActivity.this,"Please Select Blood Group",Toast.LENGTH_LONG).show();
                 }
+                else if(lastDonate.getText().toString().equals("Select Date of Last Donate")){
+                    Toast.makeText(EditMyProfileActivity.this,"Please Select Date of Last Donate",Toast.LENGTH_LONG).show();
+                }
                 else {
-                    fname = fnameet.getEditText().getText().toString();
-                    lname = lnameet.getEditText().getText().toString();
+                    fullname = fullnameet.getEditText().getText().toString();
                     dateofbirth = dateofbirthet.getText().toString();
                     city = cityet.getText().toString();
                     address = addresset.getEditText().getText().toString();
                     email = emailet.getEditText().getText().toString();
                     cnumber = cnumberet.getEditText().getText().toString();
                     enumber = enumberet.getEditText().getText().toString();
+                    ld = lastDonate.getText().toString();
 
 
                     final ProgressDialog pd = new ProgressDialog(EditMyProfileActivity.this);
@@ -183,46 +184,49 @@ public class EditMyProfileActivity extends AppCompatActivity {
                                 DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
                                 Map userInfo = new HashMap();
 
-                                userInfo.put("fname",fname);
-                                userInfo.put("lname",lname);
-                                userInfo.put("fullname",fullnameet.getEditText().getText().toString());
+                                userInfo.put("fullname",fullname);
                                 userInfo.put("userid",userId);
                                 userInfo.put("email",email);
-                                userInfo.put("abilty",ability);
+                                userInfo.put("ability",ability);
                                 userInfo.put("dateofbirth",dateofbirth);
                                 userInfo.put("city",city);
                                 userInfo.put("address",address);
                                 userInfo.put("contactNO",cnumber);
                                 userInfo.put("emergencyNO",enumber);
                                 userInfo.put("BloodGroup",bloodgroup);
+                                userInfo.put("lastDonate",ld);
 
                                 dbRef.updateChildren(userInfo);
                                 pd.dismiss();
                                 Toast.makeText(EditMyProfileActivity.this,"Update Successfully",Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(EditMyProfileActivity.this, MainActivity.class));
 
-
-
-
                 }
-
-
-
             }
         });
         DatePickerDialog.OnDateSetListener date = (view, year, month, day) -> {
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH,month);
             myCalendar.set(Calendar.DAY_OF_MONTH,day);
-            updateLabel();
+            updateLabeldb();
+        };
+        DatePickerDialog.OnDateSetListener lastlddate = (view, year, month, day) -> {
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH,month);
+            myCalendar.set(Calendar.DAY_OF_MONTH,day);
+            updateLabelld();
         };
         dateofbirthet.setOnClickListener(v -> {
-
-
                 new DatePickerDialog(EditMyProfileActivity.this,date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
 
 
         });
+        lastDonate.setOnClickListener(v -> {
+            new DatePickerDialog(EditMyProfileActivity.this,lastlddate,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+
+        });
+
 
         ailityrb.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @SuppressLint("ResourceType")
@@ -259,9 +263,44 @@ public class EditMyProfileActivity extends AppCompatActivity {
 
                     if(snapshot.child("ability").getValue()!=null){
                         ability = snapshot.child("ability").getValue().toString();
+                        switch (ability) {
+                            case "Yes":
+                                ailityrb.check(R.id.Yes);
+                                break;
+                            case "No":
+                                ailityrb.check(R.id.No);
+                                break;
+                        }
+
                     }
                     if(snapshot.child("BloodGroup").getValue()!=null){
                         bloodgroup = snapshot.child("BloodGroup").getValue().toString();
+                        switch (bloodgroup) {
+                            case "A+":
+                                bloodgrouprd.check(R.id.ap);
+                                break;
+                            case "A-":
+                                bloodgrouprd.check(R.id.an);
+                                break;
+                            case "B+":
+                                bloodgrouprd.check(R.id.bp);
+                                break;
+                            case "B-":
+                                bloodgrouprd.check(R.id.bn);
+                                break;
+                            case "AB+":
+                                bloodgrouprd.check(R.id.abp);
+                                break;
+                            case "AB-":
+                                bloodgrouprd.check(R.id.abn);
+                                break;
+                            case "O+":
+                                bloodgrouprd.check(R.id.op);
+                                break;
+                            case "O-":
+                                bloodgrouprd.check(R.id.on);
+                                break;
+                        }
                     }
                     if(snapshot.child("emergencyNO").getValue()!=null){
                         enumberet.getEditText().setText(snapshot.child("emergencyNO").getValue().toString());
@@ -278,12 +317,10 @@ public class EditMyProfileActivity extends AppCompatActivity {
                     if(snapshot.child("dateofbirth").getValue()!=null){
                         dateofbirthet.setText(snapshot.child("dateofbirth").getValue().toString());
                     }
-                    if(snapshot.child("fname").getValue()!=null){
-                        fnameet.getEditText().setText(snapshot.child("fname").getValue().toString());
+                    if(snapshot.child("lastDonate").getValue()!=null){
+                        lastDonate.setText(snapshot.child("lastDonate").getValue().toString());
                     }
-                    if(snapshot.child("lname").getValue()!=null){
-                        lnameet.getEditText().setText(snapshot.child("lname").getValue().toString());
-                    }
+
                     if(snapshot.child("fullname").getValue()!=null){
                         fullnameet.getEditText().setText(snapshot.child("fullname").getValue().toString());
                     }
@@ -303,10 +340,15 @@ public class EditMyProfileActivity extends AppCompatActivity {
     }
 
 
-    private void updateLabel(){
+    private void updateLabeldb(){
         String myFormat="MM/dd/yy";
         SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
         dateofbirthet.setText(dateFormat.format(myCalendar.getTime()));
+    }
+    private void updateLabelld(){
+        String myFormat="MM/dd/yy";
+        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
+        lastDonate.setText(dateFormat.format(myCalendar.getTime()));
     }
     public void cancel(View view) {
         finish();

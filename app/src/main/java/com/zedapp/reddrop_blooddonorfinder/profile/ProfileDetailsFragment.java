@@ -119,9 +119,9 @@ public class ProfileDetailsFragment extends Fragment {
                     if(snapshot.child("address").getValue()!=null) {
                         address.setVisibility(View.VISIBLE);
                         address.setText(snapshot.child("address").getValue().toString()); }
-                    if(snapshot.child("lastdonate").getValue()!=null) {
+                    if(snapshot.child("lastDonate").getValue()!=null) {
                         lastdonate.setVisibility(View.VISIBLE);
-                        lastdonate.setText("L/D: "+snapshot.child("lastdonate").getValue().toString()); }
+                        lastdonate.setText("L/D: "+snapshot.child("lastDonate").getValue().toString()); }
                     if(snapshot.child("email").getValue()!=null) {
                         email.setVisibility(View.VISIBLE);
                         email.setText(snapshot.child("email").getValue().toString()); }

@@ -44,7 +44,7 @@
         <activity
             android:name=".profile.EditMyProfileActivity"
             android:exported="false"
-            android:theme="@style/Theme.Design.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".MyNewsFeedActivity"
             android:exported="false" />

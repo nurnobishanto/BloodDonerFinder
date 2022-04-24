@@ -106,7 +106,7 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog =  new Dialog(SignUp.this);
-                dialog.setContentView(R.layout.dialogue_search_box);
+                dialog.setContentView(R.layout.dialogue_search_box_dark);
                 dialog.getWindow().setLayout(700,1200);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));
 

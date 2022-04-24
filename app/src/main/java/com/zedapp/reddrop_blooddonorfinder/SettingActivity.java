@@ -151,13 +151,12 @@ public class SettingActivity extends AppCompatActivity {
         editor.remove("UserEmail");
         editor.apply();
         FirebaseAuth.getInstance().signOut();
-        deleteCache(SettingActivity.this);
-        clearAppData();
-        finish();
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
         startActivity(intent);
-
         Toast.makeText(this,"Logout",Toast.LENGTH_SHORT).show();
+        deleteCache(SettingActivity.this);
+       // clearAppData();
+        finish();
     }
     public static void deleteCache(Context context) {
         try {
