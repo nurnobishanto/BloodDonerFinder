@@ -21,50 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Blood Request and News Feed"
-                android:drawablePadding="15dp"
-                android:padding="10dp"
-                android:textColor="@color/white"
-                android:background="@color/primaryColor"
-                android:layout_marginTop="1dp" />
-
-            <Button
-                android:id="@+id/mybr"
-                android:paddingStart="30dp"
-                android:paddingEnd="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/settings_btn"
-                android:text="My Blood Request"
-                android:textAllCaps="false"
-                android:textAlignment="textStart"
-                android:fontFamily="@font/roboto_regular"
-                android:drawablePadding="15dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:textColor="@color/black"
-                android:layout_marginTop="1dp"
-                app:drawableLeftCompat="@drawable/ic_req" />
-            <Button
-                android:id="@+id/mynf"
-                android:textColor="@color/black"
-                android:paddingStart="30dp"
-                android:paddingEnd="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/settings_btn"
-                android:text="My News Feed"
-                android:textAllCaps="false"
-                android:textAlignment="textStart"
-                android:fontFamily="@font/roboto_regular"
-                android:drawablePadding="15dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_marginTop="1dp"
-                app:drawableLeftCompat="@drawable/ic_feed" />
 
             <Button
                 android:id="@+id/editprofile"
@@ -127,61 +83,76 @@
                 android:paddingEnd="20dp"
                 android:layout_marginTop="1dp" />
 
-            <TextView
+            <Button
+                android:onClick="appVersion"
+                android:textColor="@color/black"
+                android:paddingStart="30dp"
+                android:paddingEnd="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/settings_btn"
                 android:text="App Version"
-                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:textAlignment="textStart"
+                android:fontFamily="@font/roboto_regular"
                 android:drawablePadding="15dp"
-                android:paddingStart="30dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:paddingEnd="20dp"
                 android:layout_marginTop="1dp"
-
-                app:drawableLeftCompat="@drawable/ic_logout" />
-            <TextView
+                app:drawableLeftCompat="@drawable/ic_info" />
+            <Button
+                android:onClick="contactPage"
+                android:textColor="@color/black"
+                android:paddingStart="30dp"
+                android:paddingEnd="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/settings_btn"
                 android:text="Contact Us"
-                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:textAlignment="textStart"
+                android:fontFamily="@font/roboto_regular"
                 android:drawablePadding="15dp"
-                android:paddingStart="30dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:paddingEnd="20dp"
                 android:layout_marginTop="1dp"
-                app:drawableLeftCompat="@drawable/ic_logout" />
+                app:drawableLeftCompat="@drawable/ic_text" />
 
-            <TextView
+            <Button
+                android:onClick="privacyPage"
+                android:textColor="@color/black"
+                android:paddingStart="30dp"
+                android:paddingEnd="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/settings_btn"
                 android:text="Privacy Policy"
-                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:textAlignment="textStart"
+                android:fontFamily="@font/roboto_regular"
                 android:drawablePadding="15dp"
-                android:paddingStart="30dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:paddingEnd="20dp"
                 android:layout_marginTop="1dp"
-                app:drawableLeftCompat="@drawable/ic_logout" />
+                app:drawableLeftCompat="@drawable/ic_text" />
 
-            <TextView
+            <Button
+                android:onClick="termsPage"
+                android:textColor="@color/black"
+                android:paddingStart="30dp"
+                android:paddingEnd="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/settings_btn"
-                android:text="Terms of Condition"
-                android:textSize="20sp"
+                android:text="Terms of Conditions"
+                android:textAllCaps="false"
+                android:textAlignment="textStart"
+                android:fontFamily="@font/roboto_regular"
                 android:drawablePadding="15dp"
-                android:paddingStart="30dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:paddingEnd="20dp"
                 android:layout_marginTop="1dp"
-                app:drawableLeftCompat="@drawable/ic_logout" />
+                app:drawableLeftCompat="@drawable/ic_text" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -195,19 +166,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
+            <Button
+                android:onClick="logout"
+                android:textColor="@color/black"
+                android:paddingStart="30dp"
+                android:paddingEnd="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/settings_btn"
                 android:text="Logout"
-                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:textAlignment="textStart"
+                android:fontFamily="@font/roboto_regular"
                 android:drawablePadding="15dp"
-                android:paddingStart="30dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:paddingEnd="20dp"
                 android:layout_marginTop="1dp"
-                android:onClick="logout"
                 app:drawableLeftCompat="@drawable/ic_logout" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
