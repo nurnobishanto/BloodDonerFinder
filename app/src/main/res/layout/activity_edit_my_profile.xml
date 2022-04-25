@@ -24,9 +24,19 @@
                 android:layout_alignParentTop="true"/>
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="100dp"
+                android:id="@+id/profile_image"
                 android:layout_gravity="center"
                 android:layout_height="100dp"
                 android:src="@drawable/male_user"/>
+            <TextView
+                android:onClick="changeImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Change Profile Image"
+                android:gravity="center"
+                android:textColor="@color/purple_700"
+                android:layout_margin="10dp"
+                android:id="@+id/changeImage"/>
 
 
             <TextView

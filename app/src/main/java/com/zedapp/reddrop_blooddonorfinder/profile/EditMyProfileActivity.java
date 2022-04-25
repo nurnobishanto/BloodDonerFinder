@@ -2,22 +2,26 @@ package com.zedapp.reddrop_blooddonorfinder.profile;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -25,6 +29,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,15 +39,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.zedapp.reddrop_blooddonorfinder.MainActivity;
 import com.zedapp.reddrop_blooddonorfinder.R;
-import com.zedapp.reddrop_blooddonorfinder.SignUp;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditMyProfileActivity extends AppCompatActivity {
     final Calendar myCalendar= Calendar.getInstance();
@@ -54,6 +68,10 @@ public class EditMyProfileActivity extends AppCompatActivity {
     String userId;
     String[] districts;
     Dialog dialog;
+    CircleImageView profile_image;
+    int Image_Request_Code = 7;
+    Uri FilePathUri;
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +90,7 @@ public class EditMyProfileActivity extends AppCompatActivity {
         emailet = findViewById(R.id.email);
         cnumberet = findViewById(R.id.cnumber);
         enumberet = findViewById(R.id.enumber);
+        profile_image = findViewById(R.id.profile_image);
 
         update = findViewById(R.id.update);
         ailityrb = findViewById(R.id.ailityrb);
@@ -79,6 +98,7 @@ public class EditMyProfileActivity extends AppCompatActivity {
         districts = getResources().getStringArray(R.array.bd_districts);
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
+        storageReference = FirebaseStorage.getInstance().getReference("ProfileImage");
         getUserInfomation(userId);
         cityet.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
@@ -132,76 +152,7 @@ public class EditMyProfileActivity extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ability.isEmpty()){
-                    Toast.makeText(EditMyProfileActivity.this,"Please Select ability Option",Toast.LENGTH_LONG).show();
-                }
-                else if (fullnameet.getEditText().getText().toString().isEmpty()){
-                    fullnameet.setError("Empty Field!");
-                }
-
-                else if(dateofbirthet.getText().toString().equals("Select Date of Birth")){
-                    Toast.makeText(EditMyProfileActivity.this,"Please Select Date of Birth",Toast.LENGTH_LONG).show();
-                }
-                else if(cityet.getText().toString().equals("Select One")){
-                    Toast.makeText(EditMyProfileActivity.this,"Please Select District",Toast.LENGTH_LONG).show();
-                }
-                else if(addresset.getEditText().getText().toString().isEmpty()){
-                    addresset.setError("Empty Field!");
-                }
-                else if(emailet.getEditText().getText().toString().isEmpty()){
-                    emailet.setError("Empty Field!");
-                }
-                else if(cnumberet.getEditText().getText().toString().isEmpty()){
-                    cnumberet.setError("Empty Field!");
-                }
-                else if(enumberet.getEditText().getText().toString().isEmpty()){
-                    enumberet.setError("Empty Field!");
-                }
-
-                else if (bloodgroup.equals("")){
-                    Toast.makeText(EditMyProfileActivity.this,"Please Select Blood Group",Toast.LENGTH_LONG).show();
-                }
-                else if(lastDonate.getText().toString().equals("Select Date of Last Donate")){
-                    Toast.makeText(EditMyProfileActivity.this,"Please Select Date of Last Donate",Toast.LENGTH_LONG).show();
-                }
-                else {
-                    fullname = fullnameet.getEditText().getText().toString();
-                    dateofbirth = dateofbirthet.getText().toString();
-                    city = cityet.getText().toString();
-                    address = addresset.getEditText().getText().toString();
-                    email = emailet.getEditText().getText().toString();
-                    cnumber = cnumberet.getEditText().getText().toString();
-                    enumber = enumberet.getEditText().getText().toString();
-                    ld = lastDonate.getText().toString();
-
-
-                    final ProgressDialog pd = new ProgressDialog(EditMyProfileActivity.this);
-                    pd.setMessage("Please wait..");
-                    pd.show();
-
-
-                                String userId = mAuth.getCurrentUser().getUid();
-                                DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
-                                Map userInfo = new HashMap();
-
-                                userInfo.put("fullname",fullname);
-                                userInfo.put("userid",userId);
-                                userInfo.put("email",email);
-                                userInfo.put("ability",ability);
-                                userInfo.put("dateofbirth",dateofbirth);
-                                userInfo.put("city",city);
-                                userInfo.put("address",address);
-                                userInfo.put("contactNO",cnumber);
-                                userInfo.put("emergencyNO",enumber);
-                                userInfo.put("BloodGroup",bloodgroup);
-                                userInfo.put("lastDonate",ld);
-
-                                dbRef.updateChildren(userInfo);
-                                pd.dismiss();
-                                Toast.makeText(EditMyProfileActivity.this,"Update Successfully",Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(EditMyProfileActivity.this, MainActivity.class));
-
-                }
+                UploadImage();
             }
         });
         DatePickerDialog.OnDateSetListener date = (view, year, month, day) -> {
@@ -228,26 +179,18 @@ public class EditMyProfileActivity extends AppCompatActivity {
         });
 
 
-        ailityrb.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @SuppressLint("ResourceType")
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton abrp = (RadioButton) group.findViewById(checkedId);
-                if (null != abrp && checkedId > -1) {
-                    ability =abrp.getText().toString();
-                }
+        ailityrb.setOnCheckedChangeListener((group, checkedId) -> {
+            RadioButton abrp = (RadioButton) group.findViewById(checkedId);
+            if (null != abrp && checkedId > -1) {
+                ability =abrp.getText().toString();
             }
         });
-        bloodgrouprd.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @SuppressLint("ResourceType")
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton bgrp = (RadioButton) group.findViewById(checkedId);
-                if (null != bgrp && checkedId > -1) {
-                    bloodgroup =bgrp.getText().toString();
-                }
-
+        bloodgrouprd.setOnCheckedChangeListener((group, checkedId) -> {
+            RadioButton bgrp = (RadioButton) group.findViewById(checkedId);
+            if (null != bgrp && checkedId > -1) {
+                bloodgroup =bgrp.getText().toString();
             }
+
         });
 
     }
@@ -305,6 +248,13 @@ public class EditMyProfileActivity extends AppCompatActivity {
                     if(snapshot.child("emergencyNO").getValue()!=null){
                         enumberet.getEditText().setText(snapshot.child("emergencyNO").getValue().toString());
                     }
+                    if(snapshot.child("image").getValue()!=null){
+                        Picasso.get()
+                                .load(snapshot.child("image").getValue().toString())
+                                .placeholder(R.drawable.male_user)
+                                .placeholder(R.drawable.female_user)
+                                .into(profile_image);
+                    }
                     if(snapshot.child("contactNO").getValue()!=null){
                         cnumberet.getEditText().setText(snapshot.child("contactNO").getValue().toString());
                     }
@@ -352,5 +302,169 @@ public class EditMyProfileActivity extends AppCompatActivity {
     }
     public void cancel(View view) {
         finish();
+    }
+
+    public void changeImage(View view) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Image"), Image_Request_Code);
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Image_Request_Code && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            FilePathUri = data.getData();
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), FilePathUri);
+                profile_image.setImageBitmap(bitmap);
+            }
+            catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public String GetFileExtension(Uri uri) {
+
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri)) ;
+
+    }
+    public void UploadImage() {
+
+        if (FilePathUri != null) {
+
+            final ProgressDialog pd = new ProgressDialog(EditMyProfileActivity.this);
+            pd.setMessage("Image Uploading..");
+            pd.show();
+            final StorageReference ref = storageReference.child(System.currentTimeMillis() + "." + GetFileExtension(FilePathUri));
+
+            profile_image.setDrawingCacheEnabled(true);
+            profile_image.buildDrawingCache();
+            Bitmap bitmap = ((BitmapDrawable) profile_image.getDrawable()).getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
+
+            UploadTask uploadTask = ref.putBytes(data);
+            uploadTask = ref.putFile(FilePathUri);
+
+            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+
+                    // Continue with the task to get the download URL
+                    return ref.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        Toast.makeText(getApplicationContext(), "Image Uploaded Successfully ", Toast.LENGTH_LONG).show();
+                        uploadInfo(downloadUri.toString());
+                    } else {
+                        // Handle failures
+                        // ...
+                        Toast.makeText(getApplicationContext(), "Image Uploaded Failed ", Toast.LENGTH_LONG).show();
+                        pd.dismiss();
+                    }
+                }
+            });
+
+
+
+        }
+        else {
+            uploadInfo("default");
+            //Toast.makeText(AddBloodRequestActivity.this, "Please Select Image or Add Image Name", Toast.LENGTH_LONG).show();
+
+        }
+    }
+
+    private void uploadInfo(String image) {
+        if (ability.isEmpty()){
+            Toast.makeText(EditMyProfileActivity.this,"Please Select ability Option",Toast.LENGTH_LONG).show();
+        }
+        else if (fullnameet.getEditText().getText().toString().isEmpty()){
+            fullnameet.setError("Empty Field!");
+        }
+
+        else if(dateofbirthet.getText().toString().equals("Select Date of Birth")){
+            Toast.makeText(EditMyProfileActivity.this,"Please Select Date of Birth",Toast.LENGTH_LONG).show();
+        }
+        else if(cityet.getText().toString().equals("Select One")){
+            Toast.makeText(EditMyProfileActivity.this,"Please Select District",Toast.LENGTH_LONG).show();
+        }
+        else if(addresset.getEditText().getText().toString().isEmpty()){
+            addresset.setError("Empty Field!");
+        }
+        else if(emailet.getEditText().getText().toString().isEmpty()){
+            emailet.setError("Empty Field!");
+        }
+        else if(cnumberet.getEditText().getText().toString().isEmpty()){
+            cnumberet.setError("Empty Field!");
+        }
+        else if(enumberet.getEditText().getText().toString().isEmpty()){
+            enumberet.setError("Empty Field!");
+        }
+
+        else if (bloodgroup.equals("")){
+            Toast.makeText(EditMyProfileActivity.this,"Please Select Blood Group",Toast.LENGTH_LONG).show();
+        }
+        else if(lastDonate.getText().toString().equals("Select Date of Last Donate")){
+            Toast.makeText(EditMyProfileActivity.this,"Please Select Date of Last Donate",Toast.LENGTH_LONG).show();
+        }
+        else {
+            fullname = fullnameet.getEditText().getText().toString();
+            dateofbirth = dateofbirthet.getText().toString();
+            city = cityet.getText().toString();
+            address = addresset.getEditText().getText().toString();
+            email = emailet.getEditText().getText().toString();
+            cnumber = cnumberet.getEditText().getText().toString();
+            enumber = enumberet.getEditText().getText().toString();
+            ld = lastDonate.getText().toString();
+
+
+            final ProgressDialog pd = new ProgressDialog(EditMyProfileActivity.this);
+            pd.setMessage("Please wait..");
+            pd.show();
+
+
+            String userId = mAuth.getCurrentUser().getUid();
+            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+            Map<String, Object> userInfo = new HashMap<>();
+
+            userInfo.put("fullname",fullname);
+            userInfo.put("userid",userId);
+            userInfo.put("email",email);
+            userInfo.put("ability",ability);
+            userInfo.put("dateofbirth",dateofbirth);
+            userInfo.put("city",city);
+            userInfo.put("address",address);
+            userInfo.put("contactNO",cnumber);
+            userInfo.put("emergencyNO",enumber);
+            userInfo.put("BloodGroup",bloodgroup);
+            userInfo.put("lastDonate",ld);
+            userInfo.put("image",image);
+
+            dbRef.updateChildren(userInfo);
+            pd.dismiss();
+            Toast.makeText(EditMyProfileActivity.this,"Update Successfully",Toast.LENGTH_LONG).show();
+            finish();
+
+        }
     }
 }
