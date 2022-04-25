@@ -42,6 +42,7 @@
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_blood_bank.xml" value="0.32065217391304346" />
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_blood_request_comment.xml" value="0.25" />
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_chat.xml" value="0.225" />
+        <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_contact.xml" value="0.112109375" />
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_dashboard.xml" value="0.22" />
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_edit_my_profile.xml" value="0.25" />
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_feed_comment.xml" value="0.225" />
@@ -58,11 +59,13 @@
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_message.xml" value="0.2226775956284153" />
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_my_news_feed.xml" value="0.15198087431693988" />
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_news_feed.xml" value="0.225" />
+        <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_privacy.xml" value="0.112109375" />
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_profile.xml" value="0.225" />
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_request.xml" value="0.2570694087403599" />
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_setting.xml" value="0.17553191489361702" />
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_sign_up.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_splash.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/activity_terms.xml" value="0.1" />
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/add_feed.xml" value="0.225" />
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/ambulance_item.xml" value="0.3609375" />
         <entry key="..\:/Users/mdnur/AndroidStudioProjects/RedDropBloodDonorFinder/app/src/main/res/layout/blood_request_item.xml" value="0.33" />
