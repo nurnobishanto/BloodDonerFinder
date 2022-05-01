@@ -1,15 +1,74 @@
 {
   "project_info": {
     "project_number": "818931195488",
+    "firebase_url": "https://red-drop---blood-donor-finder-default-rtdb.firebaseio.com",
     "project_id": "red-drop---blood-donor-finder",
     "storage_bucket": "red-drop---blood-donor-finder.appspot.com"
   },
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:818931195488:android:af425eaf290a30637bed05",
+        "android_client_info": {
+          "package_name": "com.zedapp.reddrop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818931195488-jpp6t01gidvp5d7qukbbu02mpjmgcneh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBs_1fOCWRKhDgW5M5Hh2mTAHWM4y8GVDE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818931195488-jpp6t01gidvp5d7qukbbu02mpjmgcneh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:818931195488:android:b6c07c85386c0a787bed05",
         "android_client_info": {
           "package_name": "com.zedapp.reddrop_blooddonorfinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818931195488-jpp6t01gidvp5d7qukbbu02mpjmgcneh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBs_1fOCWRKhDgW5M5Hh2mTAHWM4y8GVDE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818931195488-jpp6t01gidvp5d7qukbbu02mpjmgcneh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818931195488:android:73ff6c2f215563737bed05",
+        "android_client_info": {
+          "package_name": "com.zedapp.reddropadmin"
         }
       },
       "oauth_client": [
