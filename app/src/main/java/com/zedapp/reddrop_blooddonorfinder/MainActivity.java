@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -159,6 +160,12 @@ public class MainActivity extends AppCompatActivity {
         hashMap.put("latitude",latitude);
         hashMap.put("longitude",longitude);
         reference.updateChildren(hashMap);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MY_LOCATION",MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+        myEdit.putString("latitude", String.valueOf(latitude));
+        myEdit.putString("longitude", String.valueOf(longitude));
+        myEdit.commit();
 
     }
 

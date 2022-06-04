@@ -205,25 +205,30 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder>{
     }
 
     private void getUserInfo(CircleImageView profileImage, TextView name, String userid) {
-        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Users");
-
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference  reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists() && dataSnapshot.getChildrenCount()>0)
+                {
 
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    if (userid.equals(snapshot.child("userid").getValue().toString())){
-                        if(snapshot.child("fullname").getValue()!=null) { name.setText(snapshot.child("fullname").getValue().toString()); }
-                        if(snapshot.child("image").getValue()!=null) {
-                            Picasso.get()
-                                    .load(snapshot.child("image").getValue().toString())
+                    Map<String,Object> map =(Map<String, Object>)dataSnapshot.getValue();
+
+
+                    if(map.get("fullname")!=null)
+                    {
+                        name.setText(map.get("fullname").toString());
+                    }
+                    if(map.get("image")!=null)
+                    {
+                        Picasso.get()
+                                    .load(map.get("image").toString())
                                     .placeholder(R.drawable.male_user)
                                     .error(R.drawable.male_user)
                                     .into(profileImage);
-                        }
                     }
-                }
 
+                }
             }
 
             @Override

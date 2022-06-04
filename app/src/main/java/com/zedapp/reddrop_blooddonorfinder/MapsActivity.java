@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.view.MenuItem;
@@ -68,6 +69,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Toast.makeText(this,"Something Went Wrong!",Toast.LENGTH_LONG).show();
         }
 
+
+
+
+
     }
     private void readFilterdata(String bgroup, String locationn) {
         progressDialog = new ProgressDialog(MapsActivity.this);
@@ -98,6 +103,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             }
         });
+
+
     }
 
     private void FetchMatchInformation(String key,String bgroup, String locationn) {
@@ -201,10 +208,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                       }
                     }
+
                 }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
+
         });
 
     }
@@ -224,6 +234,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setOnInfoWindowLongClickListener(this);
         mMap.setMinZoomPreference(10.5F);
         mMap.setContentDescription("Map with lots of markers.");
+
+        SharedPreferences sh = getSharedPreferences("MY_LOCATION", MODE_PRIVATE);
+        String latitude = sh.getString("latitude", "0.0");
+        String longitude = sh.getString("longitude", "0.0");
+        double loclatitude = Double.parseDouble(latitude);
+        double loclongitude = Double.parseDouble(longitude);
+        LatLng cod = new LatLng(loclatitude, loclongitude);
+        mMap.addMarker(new MarkerOptions()
+                .position(cod)
+                .title("My Location")
+                .snippet("")
+        );
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(cod));
+
+
 
 
 
